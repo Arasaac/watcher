@@ -1,7 +1,7 @@
 FROM node:14-buster
 LABEL maintainer="juandacorreo@gmail.com"
 
-ENV NODE_ENV=development 
+ENV NODE_ENV=production
 ENV PORT=3000
 
 # Set working directory
