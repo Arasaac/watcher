@@ -2,16 +2,26 @@ FROM node:14-buster
 LABEL maintainer="juandacorreo@gmail.com"
 
 ENV NODE_ENV=development 
-ENV PORT=80
+ENV PORT=3000
 
 # Set working directory
 RUN mkdir /app
 WORKDIR /app
-ENV HOME=/app
 
-# Install dependencies
-COPY ./package.json ./package-lock.json $HOME/
+
+# Bundle app source
+COPY . . 
+
+# Install app dependencies
+COPY package*.json ./
 RUN npm install -g node-gyp
-RUN npm install
+RUN npm install --production
+
 
 EXPOSE $PORT
+
+USER node
+
+# Run this app when a container is launched
+# base image entrypoint will add node command
+CMD [ "watcher.js" ]
